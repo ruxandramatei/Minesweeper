@@ -129,7 +129,6 @@ class MinesweeperGame:
         return True
 
 
-
     def select_square(self, x, y):
     """
         Select next square to be exposed
