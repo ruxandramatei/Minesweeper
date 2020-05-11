@@ -12,8 +12,7 @@ class MinesweeperGame:
             
         Attribute:
             (int) board_height (int) - gives the height of the board
-            
-                
+               
         Attribute:
             (int) number_of_moves - gives the number of moves made by the player
         
