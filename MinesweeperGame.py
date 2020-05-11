@@ -127,3 +127,86 @@ class MinesweeperGame:
         if x < 0 or x >= self.board_width or y < 0 or y >= self.board_height:
             return False
         return True
+
+
+
+    def select_square(self, x, y):
+    """
+        Select next square to be exposed
+    """
+    
+    logger.info("The square selected is %d, %d", x, y)
+    
+    if not self.is_inside_board(x, y):
+        raise ValueError('Invalid position of the square')
+        
+    if self._explosion:
+        raise ValueError('Game over :( ')
+        
+    if self.exposed_squares[x][y]:
+        raise ValueError('Position previously exposed ')
+        
+    self.number_of_moves += 1
+    
+    # update the board by exposing
+    number_of_exposed_squares = self._update_board(x, y)
+    
+    logger.info("%d squares are revealed", len(number_of_exposed_squares))
+    return Result(self.game_status, number_of_exposed_squares)
+    
+
+    def _update_board(self, x, y):
+        """
+        Expose squares after one move.
+        """
+        # expose given square
+        self._expose_square(x, y)
+        
+        # create a list of exposed squares
+        squares = [Square(x, y, self.neighboring_mine_counts[x][y])]
+        
+        # if the square has a mine as a neighour we end up the update
+        if self.neighboring_mine_counts[x][y] != 0:
+            return squares
+        
+        # if have an explosion we end the update
+        if self.mines_locations[x][y]:
+            self._explosion = True
+            return squares
+
+        # exposing algorithm
+        # push initial square in the stack, like dfs
+        stack = [(x, y)]
+        while len(stack) > 0:
+            (x, y) = stack.pop() # remove top of the stack
+            
+            for dx, dy in itertools.product([-1, 0, 1], [-1, 0, 1]):
+                
+                if dx == 0 and dy == 0: # same as x and y
+                    continue
+                    
+                next_x = x + dx
+                next_y = y + dy
+                
+                if self._is_inside_board(next_x, next_y): # valid position
+                    
+                    if not self.exposed[next_x][next_y]: # not previously exposed
+                        
+                        self._expose_square(next_x, next_y) # expose the new square
+                        
+                        squares.append(Square(next_x, next_y, self.neighboring_mine_counts[next_x][next_y])) # add it on the exposed squares list
+                        
+                        if self._test_if_neighbor_count_is_0(next_x, next_y): # we add it on the stack only if it has no mine neighbours
+                            stack.append((next_x, next_y))
+        
+        # Returns a list of squares that have been exposed
+        return squares
+    
+
+    def _expose_square(self, x, y):
+        self.exposed_squares[x][y] = True
+        self._number_of_exposed_squares += 1
+        
+        
+    def _test_if_neighbor_count_is_0(self, x, y):
+        return self.neighboring_mine_counts[x][y] == 0
