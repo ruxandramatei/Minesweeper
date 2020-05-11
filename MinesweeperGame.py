@@ -130,29 +130,29 @@ class MinesweeperGame:
 
 
     def select_square(self, x, y):
-    """
-        Select next square to be exposed
-    """
-    
-    logger.info("The square selected is %d, %d", x, y)
-    
-    if not self.is_inside_board(x, y):
-        raise ValueError('Invalid position of the square')
+        """
+            Select next square to be exposed
+        """
         
-    if self._explosion:
-        raise ValueError('Game over :( ')
+        logger.info("The square selected is %d, %d", x, y)
         
-    if self.exposed_squares[x][y]:
-        raise ValueError('Position previously exposed ')
+        if not self.is_inside_board(x, y):
+            raise ValueError('Invalid position of the square')
+            
+        if self._explosion:
+            raise ValueError('Game over :( ')
+            
+        if self.exposed_squares[x][y]:
+            raise ValueError('Position previously exposed ')
+            
+        self.number_of_moves += 1
         
-    self.number_of_moves += 1
-    
-    # update the board by exposing
-    number_of_exposed_squares = self._update_board(x, y)
-    
-    logger.info("%d squares are revealed", len(number_of_exposed_squares))
-    return Result(self.game_status, number_of_exposed_squares)
-    
+        # update the board by exposing
+        number_of_exposed_squares = self._update_board(x, y)
+        
+        logger.info("%d squares are revealed", len(number_of_exposed_squares))
+        return Result(self.game_status, number_of_exposed_squares)
+        
 
     def _update_board(self, x, y):
         """
@@ -209,3 +209,8 @@ class MinesweeperGame:
         
     def _test_if_neighbor_count_is_0(self, x, y):
         return self.neighboring_mine_counts[x][y] == 0
+
+
+    def quit_game(self):
+        self._quit = True
+        logger.info("Quitting the game")
