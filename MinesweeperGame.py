@@ -5,7 +5,7 @@ import logging
 
 # from Result import *
 # from Status import *
-# from MinesweeperResults import *
+# from MinesweeperResult import *
 
 class MinesweeperGame:
     """
