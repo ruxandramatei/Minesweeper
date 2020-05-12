@@ -3,6 +3,7 @@ import copy
 import itertools
 import logging
 
+# from Configuration import *
 # from Result import *
 # from Status import *
 # from MinesweeperResult import *
@@ -38,7 +39,7 @@ class MinesweeperGame:
         
         """
         Parameter:
-            (GameConfig) game_design - gives the  aspect of the game
+            (Configuration) game_design - gives the  aspect of the game
             
         Optional parameter:
             (list(boolean)) mines_positions - gives the mines positions
