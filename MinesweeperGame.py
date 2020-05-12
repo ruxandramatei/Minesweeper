@@ -4,6 +4,8 @@ import itertools
 import logging
 
 # from Result import *
+# from Status import *
+# from MinesweeperResults import *
 
 class MinesweeperGame:
     """
@@ -189,7 +191,7 @@ class MinesweeperGame:
                 
                 if self._is_inside_board(next_x, next_y): # valid position
                     
-                    if not self.exposed[next_x][next_y]: # not previously exposed
+                    if not self.exposed_squares[next_x][next_y]: # not previously exposed
                         
                         self._expose_square(next_x, next_y) # expose the new square
                         
@@ -214,3 +216,44 @@ class MinesweeperGame:
     def quit_game(self):
         self._quit = True
         logger.info("Quitting the game")
+
+
+    @property
+    def board_state(self):
+        
+        board_state = [[None for j in range(self.board_height)] for i in range(self.board_width)]
+        
+        for i, j in itertools.product(range(self.board_width), range(self.board_height)):
+            if self.exposed_squares[i][j]:
+                board_state[i][j] = self.neighboring_mine_counts[i][j]
+                
+        return board_state
+
+
+    @property
+    def game_result(self):
+        if not self.game_over:
+            raise ValueError('The game is still going')
+        return MinesweeperResult(self.game_status == Status.VICTORY, self.number_of_moves)
+    
+
+    @property
+    def game_over(self):
+        return self._explosion or self._quit or \
+               self._number_of_exposed_squares == self._number_of_safe_squares # no remaining valid squares-win
+
+    @property
+    def game_status(self):
+        """
+            Status of the minesweeper game: playing, quit, defeat, victory
+        """
+        if not self.game_over:
+            return Status.PLAYING
+        
+        if self._quit:
+            return Status.QUIT
+        
+        if self._explosion:
+            return Status.DEFEAT
+        
+        return game_status = Status.VICTORY
