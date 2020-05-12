@@ -242,6 +242,7 @@ class MinesweeperGame:
         return self._explosion or self._quit or \
                self._number_of_exposed_squares == self._number_of_safe_squares # no remaining valid squares-win
 
+
     @property
     def game_status(self):
         """
@@ -257,3 +258,13 @@ class MinesweeperGame:
             return Status.DEFEAT
         
         return game_status = Status.VICTORY
+
+
+    @property
+    def flags(self):
+        return self._flags
+
+
+    @flags.setter
+    def flags(self, flags):
+        self._flags = set(flags)
