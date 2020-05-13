@@ -17,5 +17,3 @@ class ML(abc.ABC):              # ML base class
     @property
     def flags(self):            # method that gets and displays a list of guessed mine positions (i,j tuples)
         return []
-
-
