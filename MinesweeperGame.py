@@ -1,5 +1,3 @@
-#kjdhskj
-
 import random
 import copy
 import itertools
@@ -275,3 +273,31 @@ class MinesweeperGame:
     @flags.setter
     def flags(self, flags):
         self._flags = set(flags)
+
+def run_set_of_games(configurations, nr_games, ML, visualizer=None):
+    '''
+    A set of games to evaluate an AI
+
+    Arguments:
+        (Configuration) configuration - the game parameters
+        (int) number_of_games - number of games
+        (ML) ML - the AI
+        visualizer -
+
+    Returns:
+        list of MinesweeperResult objects
+    '''
+
+    results = []
+    for n in range(nr_games):
+        logger.info("Starting game %d", n + 1)
+        ML.reset(configurations)
+        game = MineweeperGame(configurations)
+        runner = Runner(game, ML)
+        if visualizer:
+            visualizer.run(runner)
+        else:
+            for _ in runner:
+                pass
+        results.append(game.game_result)
+    return results
