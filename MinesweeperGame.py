@@ -260,8 +260,10 @@ class MinesweeperGame:
         if self._explosion:
             return Status.DEFEAT
         
-        return game_status = Status.VICTORY
-
+        else:
+             game_status = Status.VICTORY
+             
+        return game_status
 
     @property
     def flags(self):
