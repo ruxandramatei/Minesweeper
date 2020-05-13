@@ -1,3 +1,7 @@
+from Status import *
+
+logger = logging.getLogger(__name__)
+
 # class for running the game
 class Runner:                         # class Game Runner as iterator with attr:   game(Game):Minesweeper game  and
                                                                                  # ml(ML): Minesweeper ML
