@@ -31,6 +31,19 @@ class PyGameVisualizer(Visualizer):
     FLAG_TILE = 12
     WINDOW_NAME = 'Minesweeper'
     
+    def __init__(self, pause=3, next_game_prompt=False):
+        """
+        Args:
+            (int, str) pause : For how long to pause between moves in seconds or 'key' for pressing enter to continue
+            (bool) next_game_prompt : Ask the user to proceed to next game (or quit)
+        """
+        self.pause = pause
+        self.next_game_prompt = next_game_prompt
+        self.game_width = 0
+        self.game_height = 0
+        self.screen = None
+        self.tiles = None
+    
     def _load_tiles(self):
         icon = pygame.icon.load(self.TILES_FILENAME).convert()
         icon_width, image_height = icon.get_size()
