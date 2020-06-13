@@ -11,7 +11,7 @@ from Status import *
 from MinesweeperGame import *
 from MinesweeperResult import *
 from Square import *
-from classRunner import *
+from ClassRunner import *
 
 class MinesweeperGame:
     """
@@ -141,7 +141,7 @@ class MinesweeperGame:
         
         logger.info("The square selected is %d, %d", x, y)
         
-        if not self.is_inside_board(x, y):
+        if not self._is_inside_the_board(x, y):
             raise ValueError('Invalid position of the square')
             
         if self._explosion:
@@ -192,7 +192,7 @@ class MinesweeperGame:
                 next_x = x + dx
                 next_y = y + dy
                 
-                if self._is_inside_board(next_x, next_y): # valid position
+                if self._is_inside_the_board(next_x, next_y): # valid position
                     
                     if not self.exposed_squares[next_x][next_y]: # not previously exposed
                         
