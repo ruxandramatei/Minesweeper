@@ -11,7 +11,7 @@ from Status import *
 from MinesweeperGame import *
 from MinesweeperResult import *
 from Square import *
-from classRunner import *
+from ClassRunner import *
 
 class MinesweeperGame:
     """
@@ -31,7 +31,7 @@ class MinesweeperGame:
             (int) number_of_mines - gives the number of mines on the board
         
         Attribute:
-            ((boolean) list) mines_locations - bidimensional list of booleans indicating mine locations
+            ((boolean) list) mines_positions - bidimensional list of booleans indicating mine locations
         
         Attribute:
             ((int) list) neighboring_mine_counts - bidimensional list of integer counts of neighboring mines for squares
@@ -65,9 +65,9 @@ class MinesweeperGame:
         
         # init the positions of the mines
         if mines_positions:
-            self.mines_locations = copy.deepcopy(mines_positions)
+            self.mines_positions = copy.deepcopy(mines_positions)
         else:
-            self.mines_locations = [[False for y in range(self.board_height)] for x in range(self.board_width)]
+            self.mines_positions = [[False for y in range(self.board_height)] for x in range(self.board_width)]
             self._place_mines_random() # place the mines on the board randomly
         
         # init the counter of the neighboring mines
@@ -111,7 +111,7 @@ class MinesweeperGame:
         for location in locations:
             posX = location[0]
             posY = location[1]
-            self.mines_locations[posX][posY] = True
+            self.mines_positions[posX][posY] = True
             
             
     def _init_neighboring_counts(self):
@@ -119,16 +119,13 @@ class MinesweeperGame:
             Calculates how many neighboring squares have mines for all squares
         """
         for x, y in itertools.product(range(self.board_width), range(self.board_height)):
-            
-            for dx, dy in itertools.product([-1, 0, 1], [-1, 0, 1]):
-                
-                if dx == 0 and dy == 0: # the square(x, y) location
+            for dx, dy in itertools.product([-1, 0, 1], repeat=2):
+
+                if dx == 0 and dy == 0:
                     continue
-                
-                next_x, next_y = x + dx, y + dy
-                # check if the neighbor is on the board
-                if self._is_inside_the_board(next_x, next_y):
-                    self.neighboring_mine_counts[x][y] += self.number_of_mines[next_x][next_y]
+
+                if self._is_inside_the_board(x + dx, y + dy):
+                    self.neighboring_mine_counts[x][y] += self.mines_positions[x + dx][y + dy]
                     
                     
     def _is_inside_the_board(self, x, y):
@@ -144,7 +141,7 @@ class MinesweeperGame:
         
         logger.info("The square selected is %d, %d", x, y)
         
-        if not self.is_inside_board(x, y):
+        if not self._is_inside_the_board(x, y):
             raise ValueError('Invalid position of the square')
             
         if self._explosion:
@@ -177,7 +174,7 @@ class MinesweeperGame:
             return squares
         
         # if have an explosion we end the update
-        if self.mines_locations[x][y]:
+        if self.mines_positions[x][y]:
             self._explosion = True
             return squares
 
@@ -195,7 +192,7 @@ class MinesweeperGame:
                 next_x = x + dx
                 next_y = y + dy
                 
-                if self._is_inside_board(next_x, next_y): # valid position
+                if self._is_inside_the_board(next_x, next_y): # valid position
                     
                     if not self.exposed_squares[next_x][next_y]: # not previously exposed
                         
@@ -277,7 +274,7 @@ class MinesweeperGame:
     def flags(self, flags):
         self._flags = set(flags)
 
-def run_set_of_games(configurations, nr_games, ML, visualizer=None):
+def run_set_of_games(configurations, nr_games, ml, visualizer=None):
     '''
     A set of games to evaluate an AI
 
@@ -294,9 +291,9 @@ def run_set_of_games(configurations, nr_games, ML, visualizer=None):
     results = []
     for n in range(nr_games):
         logger.info("Starting game %d", n + 1)
-        ML.reset(configurations)
+        ml.reset(configurations)
         game = MinesweeperGame(configurations)
-        runner = Runner(game, ML)
+        runner = Runner(game, ml)
         if visualizer:
             visualizer.run(runner)
         else:
