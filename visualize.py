@@ -31,7 +31,7 @@ class PyGameVisualizer(Visualizer):
     FLAG_TILE = 12
     WINDOW_NAME = 'Minesweeper'
 
-    def init(self, pause=3, next_game_prompt=False):
+    def __init__(self, pause=3, next_game_prompt=False):
             """
             """
             self.pause = pause
