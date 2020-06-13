@@ -31,6 +31,16 @@ class PyGameVisualizer(Visualizer):
     FLAG_TILE = 12
     WINDOW_NAME = 'Minesweeper'
 
+    def init(self, pause=3, next_game_prompt=False):
+            """
+            """
+            self.pause = pause
+            self.next_game_prompt = next_game_prompt
+            self.table_width = 0
+            self.table_height = 0
+            self.screen = None
+            self.game_tiles = None
+
     def run(self, runner):
         game = runner.game
 
@@ -43,8 +53,8 @@ class PyGameVisualizer(Visualizer):
         pygame.display.set_caption(self.WINDOW_NAME)
         
         # give the dimensions in pixels of the screen
-        screen_pixels_width = self.TILE_SIZE * self.table_width
-        screen_pixels_height = self.TILE_SIZE * self.table_height
+        screen_pixels_width = self.SIZE_TILE * self.table_width
+        screen_pixels_height = self.SIZE_TILE * self.table_height
 
         # create the screen
         self.screen = pygame.display.set_mode((screen_pixels_width, screen_pixels_height))
@@ -104,23 +114,23 @@ class PyGameVisualizer(Visualizer):
         icon = pygame.icon.load(self.TILES_FILENAME).convert()
         icon_width, image_height = icon.get_size()
         tiles = []
-        for tile_x in range(0, icon_width // self.TILE_SIZE):
-            rect = (tile_x * self.TILE_SIZE, 0, self.TILE_SIZE, self.TILE_SIZE)
+        for tile_x in range(0, icon_width // self.SIZE_TILE):
+            rect = (tile_x * self.SIZE_TILE, 0, self.SIZE_TILE, self.SIZE_TILE)
             tiles.append(icon.subsurface(rect))
         return tiles
 
     def _draw(self, game):
-        for x in range(self.game_width):
-            for y in range(self.game_height):
-                if not game.exposed[x][y]:
+        for x in range(self.table_width):
+            for y in range(self.table_height):
+                if not game.exposed_squares[x][y]:
                     if (x, y) in game.flags:
-                        tile = self.tiles[self.TILE_FLAG]
+                        tile = self.game_tiles[self.FLAG_TILE]
                     else:
-                        tile = self.tiles[self.TILE_HIDDEN]
+                        tile = self.game_tiles[self.HIDDEN_TILE]
                 else:
                     if game.mines[x][y]:
-                        tile = self.tiles[self.TILE_EXPLODED]
+                        tile = self.game_tiles[self.EXPLODED_TILE]
                     else:
-                        tile = self.tiles[game.counts[x][y]]
+                        tile = self.game_tiles[game.neighboring_mine_counts[x][y]]
                 self.screen.blit(tile, (16 * x, 16 * y))
         pygame.display.flip()
