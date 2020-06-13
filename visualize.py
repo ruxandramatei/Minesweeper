@@ -2,27 +2,26 @@ import abc
 import os
 import time
 
-# turn off pygame printing a message on import
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = 'off'
 import pygame
 import pygame.locals
 
 class Visualizer(abc.ABC):
-    '''
-    Base class of visualization of the game
-    '''
+    """
+    Base class of visualization
+    """
     @abc.abstractmethod
     def run(self, runner):
-        '''
-        Runner runner - iterator, Runner of the game
-        '''
+        """
+        (Runner) runner - iterator
+        """
         pass
 
 
 class PyGameVisualizer(Visualizer):
-    '''
-    Visualize a minesweeper game with PyGame
-    '''
+    """
+    Visualization of the game with PyGame
+    """
     SIZE_TILE = 16
     COLOR = (189, 189, 189)
     FILENAME_TILES = os.path.join(os.path.dirname(__file__), 'tiles.png')
