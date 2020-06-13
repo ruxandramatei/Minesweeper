@@ -8,8 +8,10 @@ logger = logging.getLogger(__name__)
 from Configuration import *
 from Result import *
 from Status import *
+from MinesweeperGame import *
 from MinesweeperResult import *
-#from Runner import *
+from Square import *
+from classRunner import *
 
 class MinesweeperGame:
     """
@@ -293,7 +295,7 @@ def run_set_of_games(configurations, nr_games, ML, visualizer=None):
     for n in range(nr_games):
         logger.info("Starting game %d", n + 1)
         ML.reset(configurations)
-        game = MineweeperGame(configurations)
+        game = MinesweeperGame(configurations)
         runner = Runner(game, ML)
         if visualizer:
             visualizer.run(runner)
