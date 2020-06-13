@@ -16,6 +16,9 @@ class ML(abc.ABC):              # ML base class
 
     @property
     def flags(self):            # method that gets and displays a list of guessed mine positions (i,j tuples)
+<<<<<<< HEAD
+        return []
+=======
         return []
 
 # class for generating the game structure of tiles/mines/numbers
@@ -41,3 +44,4 @@ class gameGenerator(ML):
     def update(self, result):
         for pos in result.exposed_squares:
             self.clicked_tiles.add((pos.x, pos.y))
+>>>>>>> d9c45958efcace2a3f6f25b467bdc4aba8acb80c
