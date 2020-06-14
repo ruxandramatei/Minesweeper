@@ -45,15 +45,15 @@ class PyGameVisualizer(Visualizer):
             self.next_game_prompt = next_game_prompt
 
     def run(self, runner):
+
+        pygame.init()
+        pygame.display.set_caption(self.WINDOW_NAME)
+
+        # get the board info of the game
         game = runner.game
 
         self.table_width = game.board_width
         self.table_height = game.board_height
-
-        pygame.init()
-        pygame.mixer.quit()  # if we don't turn off sound, uses 100% cpu
-
-        pygame.display.set_caption(self.WINDOW_NAME)
         
         # give the dimensions in pixels of the screen
         screen_pixels_width = self.SIZE_TILE * self.table_width
@@ -61,12 +61,13 @@ class PyGameVisualizer(Visualizer):
 
         # create the screen
         self.screen = pygame.display.set_mode((screen_pixels_width, screen_pixels_height))
+        # give the screen a background color
         self.screen.fill(self.COLOR)
 
         # load the tiles
         self.game_tiles = self._load_tiles()
 
-        next(runner) # get the status
+        next(runner) # move
         self._draw(game) # update the screen
 
 
@@ -82,7 +83,7 @@ class PyGameVisualizer(Visualizer):
 
                 if event.type == pygame.locals.KEYDOWN:
 
-                    next(runner) # get the status
+                    next(runner) # move
                     self._draw(game) # update the board
 
                 elif event.type == pygame.locals.QUIT:
@@ -101,7 +102,7 @@ class PyGameVisualizer(Visualizer):
 
         if self.next_game_prompt: # game paused
 
-            print("Hit any key to continue...")
+            print("Press any key to continue...")
 
             while True: # render
 
