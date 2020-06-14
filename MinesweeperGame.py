@@ -307,7 +307,7 @@ def run_set_of_games(configurations, nr_games, ml, visualizer=None):
         (Configuration) configuration - the game parameters
         (int) number_of_games - number of games
         (ML) ML - the AI
-        visualizer -
+        (Visualizer) visualizer
 
     Returns:
         list of MinesweeperResult objects

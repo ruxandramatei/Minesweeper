@@ -33,13 +33,16 @@ class PyGameVisualizer(Visualizer):
 
     def __init__(self, pause=3, next_game_prompt=False):
             """
+            Args:
+                (int, str) pause: For how long to pause in seconds or 'key' for pressing enter to continue between moves
+                (bool) next_game_prompt: Ask the user to proceed to next game (or quit)
             """
             self.pause = pause
-            self.next_game_prompt = next_game_prompt
-            self.table_width = 0
-            self.table_height = 0
             self.screen = None
             self.game_tiles = None
+            self.table_width = 0
+            self.table_height = 0
+            self.next_game_prompt = next_game_prompt
 
     def run(self, runner):
         game = runner.game
