@@ -24,7 +24,7 @@ jobs:
       - python/save-cache
       - run:
           command:
-            pytest --cov ./
+            pytest
 
 workflows:
   main:
