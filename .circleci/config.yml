@@ -7,8 +7,11 @@ jobs:
   build:
     executor: python/default
     steps:
+      - checkout
       - run:
-          command: ../Start_game.py start
+          name: Install Python dependencies
+          command:
+            pip install --user -r requirements.txt
 
   build-and-test:
     executor: python/default
