@@ -1,7 +1,6 @@
 import random
 import copy
 import itertools
-import logging
 
 from Configuration import *
 from Result import *
@@ -289,7 +288,7 @@ def run_set_of_games(configurations, nr_games, ML, visualizer=None):
 
     results = []
     for n in range(nr_games):
-        logger.info("Starting game %d", n + 1)
+        print("Starting game {}".format(n + 1))
         ML.reset(configurations)
         game = MineweeperGame(configurations)
         runner = Runner(game, ML)
