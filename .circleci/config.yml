@@ -15,7 +15,7 @@ jobs:
           command:
             pip install -r ./requirements.txt
 
-  build-and-test:
+  run-tests:
     executor: python/default
     steps:
       - checkout
@@ -23,10 +23,11 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
-          command: ./manage.py test
-          name: Test
+          command:
+            pytest --cov ./
 
 workflows:
   main:
     jobs:
       - install-dependencies
+      - run-tests
