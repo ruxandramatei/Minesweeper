@@ -3,8 +3,6 @@ import copy
 import itertools
 import logging
 
-logger = logging.getLogger(__name__)
-
 from Configuration import *
 from Result import *
 from Status import *
