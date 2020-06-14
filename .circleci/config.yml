@@ -4,7 +4,7 @@ orbs:
   python: circleci/python@0.2.1
 
 jobs:
-  build:
+  install-dependencies:
     executor: python/default
     steps:
       - checkout
@@ -29,4 +29,4 @@ jobs:
 workflows:
   main:
     jobs:
-      - build
+      - install-dependencies
