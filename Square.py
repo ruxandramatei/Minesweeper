@@ -8,9 +8,9 @@ class Square:
 
     '''
     def __init__(self, x, y, number_of_mines):
+        self.number_of_mines = number_of_mines
         self.x = x
         self.y = y
-        self.number_of_mines = number_of_mines
 
     def __eq__(self, oth):
         if isinstance(oth, self.__class__):
