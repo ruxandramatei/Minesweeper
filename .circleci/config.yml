@@ -8,7 +8,7 @@ jobs:
     executor: python/default
     steps:
       - run:
-          command: ./Start_game.py start
+          command: ../Start_game.py start
 
   build-and-test:
     executor: python/default
