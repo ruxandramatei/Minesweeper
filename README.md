@@ -9,7 +9,7 @@
   + [UML (deschideti cu diagrams.net)](https://drive.google.com/file/d/1tz78jsfjRAXVEUx7ICe6omLNRm29Fsr5/view?usp=sharing)
   + [Trello - team visible](https://trello.com/b/DFLoWyPV/minesweeper)
   + ![Trello - image](./Trello.png)
-  + [Demo - cod](./demo.mp4)
+  + [Demo - cod](https://youtu.be/q9y8JqHnG9g)
 ## Structura
 
 ### CLASS MLFILE:
