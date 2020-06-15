@@ -5,6 +5,10 @@
   + [Ana-Ruxandra-Matei](https://github.com/ruxandramatei)
   + [Denisa-Boriceanu](https://github.com/n0nia)
 
+## Linkuri:
+  + [UML](https://drive.google.com/file/d/1tz78jsfjRAXVEUx7ICe6omLNRm29Fsr5/view?usp=sharing)
+  + [Trello - team visible](https://trello.com/b/DFLoWyPV/minesweeper)
+
 ## Structura
 
 ### CLASS MLFILE:
