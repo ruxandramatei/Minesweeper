@@ -270,16 +270,16 @@ class MinesweeperGame:
             Status of the minesweeper game: playing, quit, defeat, victory
         """
         if not self.game_over:
-            return Status.PLAYING
+            game_status = Status.PLAYING
         
-        if self._quit:
-            return Status.QUIT
+        elif self._quit:
+            game_status = Status.QUIT
         
-        if self._explosion:
-            return Status.DEFEAT
+        elif self._explosion:
+            game_status =  Status.DEFEAT
         
         else:
-             game_status = Status.VICTORY
+            game_status = Status.VICTORY
              
         return game_status
 
