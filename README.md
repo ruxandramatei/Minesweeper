@@ -8,7 +8,8 @@
 ## Linkuri:
   + [UML](https://drive.google.com/file/d/1tz78jsfjRAXVEUx7ICe6omLNRm29Fsr5/view?usp=sharing)
   + [Trello - team visible](https://trello.com/b/DFLoWyPV/minesweeper)
-
+  + ![Trello - image](./Trello.png)
+  + [Demo - cod](./demo.mp4)
 ## Structura
 
 ### CLASS MLFILE:
