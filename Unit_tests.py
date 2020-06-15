@@ -20,12 +20,12 @@ class TestMinesweeperGame(unittest.TestCase):
         
         return MinesweeperGame(Configuration(3, 3, 2), mines)
 
-    def check_status_at_beginning_of_game(game):
+    def test_check_status_at_beginning_of_game(game):
 
         assert Status.PLAYING == game.game_status
 
 
-    def check_if_already_exposed_square(game):
+    def test_check_if_already_exposed_square(game):
 
         game.select_square(0, 2)
 
@@ -35,20 +35,20 @@ class TestMinesweeperGame(unittest.TestCase):
         assert 1 == game.number_of_moves
 
 
-    def check_when_game_is_already_over(game):
+    def test_check_when_game_is_already_over(game):
         game.select_square(1, 0)
         with pytest.raises(ValueError):
             game.select_square(0, 0)
 
         assert game.game_over
     
-    def check_if_game_is_over_after_calling_quit(game):
+    def test_check_if_game_is_over_after_calling_quit(game):
         game.select_square(0, 0)
         game.quit_game()
 
         assert game.game_over
 
-    def check_selecting_an_outside_position(game2):
+    def test_check_selecting_an_outside_position(game2):
         with pytest.raises(ValueError):
             game.select_square(2, 3)
 
