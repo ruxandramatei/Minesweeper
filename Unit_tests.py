@@ -17,6 +17,7 @@ class TestMinesweeperGame(unittest.TestCase):
             [False, False, False],
             [False, False, True]
         ])
+        
         return MinesweeperGame(Configuration(3, 3, 2), mines)
 
     def check_status_at_beginning_of_game(game):
@@ -38,8 +39,20 @@ class TestMinesweeperGame(unittest.TestCase):
         game.select_square(1, 0)
         with pytest.raises(ValueError):
             game.select_square(0, 0)
+
+        assert game.game_over
+    
+    def check_if_game_is_over_after_calling_quit(game):
+        game.select_square(0, 0)
+        game.quit_game()
+
         assert game.game_over
 
+    def check_selecting_an_outside_position(game2):
+        with pytest.raises(ValueError):
+            game.select_square(2, 3)
+
+        assert 0 == game.num_moves
 
 if __name__ == '__main__':
     unittest.main()
