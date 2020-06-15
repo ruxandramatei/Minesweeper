@@ -148,21 +148,15 @@ class MinesweeperGame:
 
         if self._explosion:
 
-            print('Game over :( ')
-
-            return
+            raise ValueError('Game over :( ')
         
         if not self._is_inside_the_board(x, y):
 
-            print('Invalid position')
-
-            return
+            raise ValueError('Invalid position')
             
         if self.exposed_squares[x][y]:
 
-            print('Position previously exposed ')
-
-            return
+            raise ValueError('Position previously exposed ')
             
         self.number_of_moves += 1
         
@@ -259,8 +253,7 @@ class MinesweeperGame:
         
         if not self.game_over:
 
-            print('The game is still going')
-            return
+            raise ValueError('The game is still going')
 
         return MinesweeperResult(self.game_status == Status.VICTORY, self.number_of_moves)
     
@@ -277,16 +270,16 @@ class MinesweeperGame:
             Status of the minesweeper game: playing, quit, defeat, victory
         """
         if not self.game_over:
-            return Status.PLAYING
+            game_status = Status.PLAYING
         
-        if self._quit:
-            return Status.QUIT
+        elif self._quit:
+            game_status = Status.QUIT
         
-        if self._explosion:
-            return Status.DEFEAT
+        elif self._explosion:
+            game_status =  Status.DEFEAT
         
         else:
-             game_status = Status.VICTORY
+            game_status = Status.VICTORY
              
         return game_status
 
